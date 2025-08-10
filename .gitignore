@@ -1,0 +1,12 @@
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
+
+# Ignore node js and javascript files
+node_js/
+old_resume/
+react_js/
+utility_script/
+PRINCE_SINHA.pdf
+java/
+javascript/
