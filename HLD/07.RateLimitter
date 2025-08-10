@@ -1,0 +1,129 @@
+Rate limiting restricts how many actions (like API calls) can be made within a certain time window. It's used to:
+
+Prevent abuse (DDoS, brute force, etc.)
+
+Ensure fair usage
+
+Protect backend systems from overload
+
+
+1. ✅ Fixed Window
+Logic:
+
+Divide time into windows (e.g., 1 min)
+
+Count requests per window
+
+Reset count every new window
+
+Example:
+
+Limit: 10 req/min
+
+If 10 requests are made at 12:00–12:00:59, 11th request is blocked until 12:01
+
+Pros: Simple
+Cons: Spiky traffic allowed at window edges
+
+2. ✅ Sliding Window Log
+Logic:
+
+Log the timestamp of every request
+
+For every new request, count how many are in the last N seconds
+
+Example:
+
+Limit: 3 req per 10 sec
+
+You send requests at: 0s, 3s, 8s → all allowed
+
+At 9s, new request will be denied
+
+At 11s, oldest (0s) request is removed, new one can enter
+
+Pros: High accuracy
+Cons: Memory usage grows with users (as we need to have all data to claculate no of request).
+
+3. ✅ Sliding Window Counter (weighted )
+Logic:
+
+Keeps 2 counters:
+
+Current window
+
+Previous window
+
+Weight them based on how much time has passed
+
+Example:
+
+Suppose you're 30% into current window.
+
+Then:
+effective_requests = 0.3 * current_count + 0.7 * previous_count
+
+
+
+Pros: Less memory than logs -> no logs (no need of data log as we are using just window_count (that is for complet timeframe))
+Cons: Slightly less accurate as we don't know when request came
+
+4. ✅ Token Bucket
+Logic:
+
+Tokens are added to a bucket at a fixed rate (e.g., 1 per second)
+
+Each request takes 1 token
+
+If no token → request is denied
+
+Example:
+
+Bucket size: 10, Rate: 1/sec
+
+10 requests sent quickly → allowed
+
+Next request must wait until token refills
+
+Pros: Allows bursts, smooth traffic
+Cons: Requires background refill logic
+
+5. ✅ Leaky Bucket
+Logic:
+
+Queue stores requests
+
+Bucket leaks (processes) requests at a fixed rate
+
+If bucket is full → new requests are dropped
+
+Example:
+
+Leak rate: 1 req/sec
+
+If 5 requests arrive instantly:
+
+1st is processed
+
+2–5 go into queue
+
+6th is rejected if queue is full
+
+Pros: Smoother request handling
+Cons: Doesn’t allow bursts easily
+
+🔁 Real-Life Example: Token Bucket (ATM analogy)
+Think of an ATM that gives 1 token (₹1000) per minute.
+
+You can withdraw ₹10,000 max (bucket size = 10 tokens).
+
+If you're out of tokens, you wait for more to come.
+
+If you don’t withdraw for 10 minutes, you have 10 tokens saved up and can make a big withdrawal all at once.
+
+
+
+Among all the rate-limiting algorithms, the most popular and widely used one in production systems is:
+
+✅ Token Bucket Algorithm -: This is perfect for real-world traffic, where users behave in bursts but still 
+need controlled access.

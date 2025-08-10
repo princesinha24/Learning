@@ -1,0 +1,89 @@
+The most commonly used caching strategy in real-world applications is:
+Cache-Aside (Lazy Loading)
+Simple to implement	Application controls cache and DB independently
+✅ Flexible	Works with any cache system (Redis, Memcached)
+✅ Efficient use of cache	Only hot (frequently accessed) data gets cached
+✅ Safe writes	No risk of losing data since writes go directly to DB
+
+1. Cache-Aside (Lazy Load) – FLOW
+
+sequenceDiagram
+    actor User
+    participant App
+    participant Cache
+    participant DB
+
+    User->>App: Request data (e.g., user profile)
+    App->>Cache: Check if data exists
+    alt Cache hit
+        Cache-->>App: Return cached data
+        App-->>User: Return data
+    else Cache miss
+        Cache-->>App: Not found
+        App->>DB: Fetch from DB
+        DB-->>App: Return data
+        App->>Cache: Store data in cache
+        App-->>User: Return data
+    end
+
+
+2. Read-Through – FLOW
+
+sequenceDiagram
+    actor User
+    participant App
+    participant Cache
+    participant DB
+
+    User->>App: Request data
+    App->>Cache: Read data
+    alt Cache hit
+        Cache-->>App: Return data
+        App-->>User: Return data
+    else Cache miss
+        Cache->>DB: Read from DB
+        DB-->>Cache: Return data
+        Cache-->>App: Return data
+        App-->>User: Return data
+    end
+
+3. Write-Around – FLOW
+
+sequenceDiagram
+    actor User
+    participant App
+    participant Cache
+    participant DB
+
+    User->>App: Write data
+    App->>DB: Write to DB (only)
+    App-->>User: Ack
+
+
+4. Write-Through – FLOW
+sequenceDiagram
+    actor User
+    participant App
+    participant Cache
+    participant DB
+
+    User->>App: Update data (e.g., profile)
+    App->>Cache: Write to cache
+    App->>DB: Write to DB
+    App-->>User: Ack (write success)
+
+
+5. Write-Behind (Write-Back) – FLOW
+
+sequenceDiagram
+    actor User
+    participant App
+    participant Cache
+    participant DB
+
+    User->>App: Write data
+    App->>Cache: Write to cache (only)
+    Cache-->>App: Ack
+    App-->>User: Return success
+
+    Note over Cache,DB: Cache asynchronously writes to DB later

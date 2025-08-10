@@ -1,0 +1,20 @@
+CAP theorem states that in a distributed system, you can’t have 
+Consistency, Availability, and Partition Tolerance all at once. 
+If there’s a network failure, you must choose between being 
+correct (Consistency) or always available (Availability).
+
+🧠 Important Keywords (Simple Definitions)
+Term                Meaning
+Consistency         All users see the same data.
+Availability        System always responds (no hanging).
+Partition Tolerance System survives network issues.
+
+Partition Tolerance: If a network failure occurs (partition), the system 
+still works fine (some data may be unavailable). This is the most important 
+part of CAP as it's the only way to ensure the system is always available (A). 
+This means that if one node is down, the other nodes should still be able to 
+communicate with each other.
+
+
+We can't have all three properties at the same time.
+Partition Tolerance is the most important property. and should be there always in distributed system.

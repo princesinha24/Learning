@@ -1,0 +1,79 @@
+A load balancer is a system that distributes incoming traffic across multiple servers so that no single server gets overloaded. It helps ensure high availability, reliability, and scalability of services. Let’s break this down simply 👇
+
+🧰 What is a Load Balancer?
+Imagine a restaurant with one cashier and a long line of customers. Now imagine the restaurant adds 3 more cashiers and a person at the front (the load balancer) who directs customers to the least busy cashier.
+
+That “person” is the load balancer in computing.
+
+⚙️ What It Does:
+Sits between client and backend servers
+
+Distributes client requests to one of the available servers
+
+Monitors server health and skips failed ones
+
+Improves response time and fault tolerance
+
+📊 Load Balancing Algorithms
+1. Round Robin
+Sends requests to servers one by one in a circular order.
+
+Doesn’t consider server load.
+
+🧠 Simple but not ideal for uneven workloads.
+
+Example:
+Request 1 → Server A
+Request 2 → Server B
+Request 3 → Server C
+Request 4 → Server A again...
+
+2. Least Connections
+Sends the next request to the server with the fewest active connections.
+
+Good when requests vary in length.
+
+Use case: Long-lived connections like database or video streaming.
+
+3. IP Hash
+Uses the client's IP address to decide which server to send the request to.
+
+Ensures same client always goes to same server.
+
+Good for session stickiness (stateful applications).
+
+4. Weighted Round Robin / Least Connections
+Each server is given a weight (based on capacity).
+
+Servers with higher weight get more requests.
+
+Example:
+
+Server A (weight 5)
+
+Server B (weight 2)
+
+Server A gets ~70% of the traffic.
+
+5. Random
+Just picks a server randomly.
+
+Surprisingly effective in some cases.
+
+6. Consistent Hashing
+Mostly used in distributed systems and databases.
+
+Ensures minimum re-distribution of requests when servers are added/removed.
+
+🧪 Real-World Example:
+You're accessing Netflix.
+
+Netflix has 100s of servers across regions.
+
+A load balancer:
+
+Checks if the nearest server is alive
+
+Routes your video stream request to the best available one
+
+Balances other users across all those servers

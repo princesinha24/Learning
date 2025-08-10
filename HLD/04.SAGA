@@ -1,0 +1,82 @@
+SAGA refers to "Saga Pattern", a design pattern for managing long-running transactions in distributed systems.
+
+It breaks a transaction into smaller, isolated steps, each with compensating actions to undo changes if needed.
+
+Key Concepts:
+- **Choreography**: Each service listens for events, performs actions, and emits events for the next service.
+
+- **Orchestration**: A central controller manages the saga's flow, invoking services and handling compensations if needed.
+
+Example: Online Order Processing
+Placing an order involves:
+1. Deducting inventory.
+2. Charging the customer.
+3. Shipping the product.
+
+If any step fails, previous steps must be undone (e.g., refund customer, restock inventory).
+
+Steps in the Saga:
+- **Step 1**: Deduct inventory.
+    - If successful, proceed to charge the customer.
+    - If it fails, no compensation is needed.
+- **Step 2**: Charge the customer.
+    - If successful, proceed to ship the product.
+    - If it fails, compensate by restocking inventory.
+- **Step 3**: Ship the product.
+    - If successful, the saga completes.
+    - If it fails, compensate by refunding the customer and restocking inventory.
+
+Flow Chart:
+Start
+    |
+    v
+Deduct Inventory -----> Failure? -----> End
+    |                                   |
+    v                                   v
+Charge Customer -----> Failure? -----> Compensate: Restock Inventory (rollback)
+    |                                   |
+    v                                   v
+Ship Product -----> Failure? --------> Compensate: Refund Customer, Restock Inventory (rollback)
+    |
+    v
+    End
+
+Code Example (Orchestration in Python):
+class OrderSaga:
+        def __init__(self):
+                self.compensations = []
+
+        def deduct_inventory(self):
+                print("Inventory deducted.")
+                self.compensations.append(self.restock_inventory)
+
+        def charge_customer(self):
+                print("Customer charged.")
+                self.compensations.append(self.refund_customer)
+
+        def ship_product(self):
+                print("Product shipped.")
+
+        def restock_inventory(self):
+                print("Inventory restocked.")
+
+        def refund_customer(self):
+                print("Customer refunded.")
+
+        def execute(self):
+                try:
+                        self.deduct_inventory()
+                        self.charge_customer()
+                        self.ship_product()
+                        print("Order completed successfully.")
+                except Exception as e:
+                        print(f"Error: {e}. Rolling back...")
+                        while self.compensations:
+                                compensation = self.compensations.pop()
+                                compensation()
+
+# Example usage
+saga = OrderSaga()
+saga.execute()
+
+This example demonstrates compensations queued and executed in reverse order if something fails.

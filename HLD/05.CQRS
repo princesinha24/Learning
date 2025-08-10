@@ -1,0 +1,74 @@
+CQRS (Command Query Responsibility Segregation) is a design pattern that separates the responsibilities of reading data  
+(queries) and writing data (commands) into two distinct models. This separation allows for better scalability, performance,  
+and maintainability in complex systems.  
+
+Key Concepts:  
+Command: Operations that modify the state of the system (e.g., creating, updating, or deleting data).  
+Query: Operations that retrieve data without modifying it.  
+Separation: Commands and queries use different models, databases, or even services.  
+
+Flow Chart:  
+Here’s a simplified flow chart for CQRS:  
+User Action  
+    ↓  
+Command (Write) → Command Handler → Write Database  
+    ↓  
+Query (Read) → Query Handler → Read Database  
+
+Command Flow: When a user performs an action that modifies data (e.g., creating an order), the command is processed  
+by a command handler and stored in the write database.  
+Query Flow: When a user requests data (e.g., viewing order details), the query is processed by a query handler and  
+fetched from the read database.  
+
+Example:  
+Imagine an e-commerce system where users can place orders and view order details.  
+
+Command (Write):  
+A user places an order.  
+The system processes the command (e.g., validates the order, calculates totals).  
+The order is saved in the write database.  
+
+Query (Read):  
+The user wants to view their order history.  
+The system fetches the data from the read database, optimized for fast retrieval.  
+
+Code Example:  
+Here’s a basic implementation in Python:  
+
+Command (Write):  
+class PlaceOrderCommand:  
+     def __init__(self, order_id, items):  
+          self.order_id = order_id  
+          self.items = items  
+
+class CommandHandler:  
+     def handle(self, command):  
+          # Logic to save order to the write database  
+          print(f"Order {command.order_id} placed with items: {command.items}")  
+
+# Example usage  
+command = PlaceOrderCommand(order_id=1, items=["item1", "item2"])  
+handler = CommandHandler()  
+handler.handle(command)  
+
+Query (Read):  
+class GetOrderQuery:  
+     def __init__(self, order_id):  
+          self.order_id = order_id  
+
+class QueryHandler:  
+     def handle(self, query):  
+          # Logic to fetch order from the read database  
+          print(f"Fetching details for order {query.order_id}")  
+
+# Example usage  
+query = GetOrderQuery(order_id=1)  
+handler = QueryHandler()  
+handler.handle(query)  
+
+Benefits:  
+Scalability: Read and write operations can scale independently.  
+Performance: Read models can be optimized for queries, while write models focus on consistency.  
+Flexibility: Different databases or technologies can be used for reads and writes.  
+
+Let me know if you'd like further clarification!  

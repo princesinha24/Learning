@@ -1,0 +1,17 @@
+WebSockets: trusted for stable, ordered real-time streams over TCP.
+
+WebRTC: best for low-latency streaming directly between peers.
+
+Use system diagrams to illustrate:
+
+Session flow, connection lifecycle, fallbacks, and connection management (e.g., TURN servers in WebRTC).
+
+Highlight scalability strategies for millions of concurrent WebSocket clients (e.g., load balancing, stateless server clusters).
+
+✅ Summary Table
+Concept	Description
+Client‑Server vs P2P	Centralized request handling vs distributed peer communication
+WebSocket	TCP-based full-duplex channel for real-time communication in client-server setups
+WebRTC	Peer-to-peer protocol leveraging UDP for low-latency audio/video/data streaming
+Application Fit	Choose based on latency needs, architectural style, and scale considerations
+

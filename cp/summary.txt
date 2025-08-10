@@ -1,0 +1,52 @@
+1. Arrays
+Reversal, max/min, k‑th elements, Dutch National Flag
+
+Move negatives, intersections, cyclic rotations
+
+Kadane’s, sliding window, merge intervals, next permutation
+
+Count inversions, two-sum, 0-sum subarrays, rainwater trapping, chocolate distribution, etc.
+
+2. Matrix
+Square sums, max square in matrix (LIS 2D), min ticket cost, polygon triangulation
+
+3. Strings
+Palindromes, substrings, pattern matching (KMP/RK), LCP
+
+4. Searching & Sorting
+Binary search + variants (Book Allocation, Aggressive Cows) 
+Selection, bubble, insertion, merge, quick, and interval scheduling
+
+5. Linked Lists
+Reverse LL, middle, k-group reverse, loop detection, merge sorted, remove duplicates, clone with random ptr
+
+6. Stacks & Queues
+Implementation, histograms, celebrity problem, special stacks, queue interview Qs
+
+7. Trees & BST
+BST creation, traversals, LCA, convert to DLL, burn tree, Morris traversal, largest BST subtree
+
+8. Heaps & Hashing
+Heap implementation, top-k, hashmaps, frequency counting
+
+9. Trie
+Insert/search, longest common prefix, phone directory
+
+10. Graphs
+BFS, DFS, cycle detection (undirected & directed), topological sort (DFS + Kahn), shortest paths (DAG, Dijkstra)
+
+11. Recursion & Backtracking
+Subsets, permutations, string recursion, maze/rat, N‑queen, Sudoku solver
+
+12. Greedy Algorithms
+Interval scheduling, stock buy/sell problems, jumps
+
+13. Bit Manipulation
+Bit masks, power-of-two checks, subset enumeration
+
+14. Dynamic Programming
+LIS, knapsack, dice roll targets, pizza slices, cuboid stacking, Russian doll envelopes, matrix chain, triangulation, min side jumps, reducing dishes
+
+15. Math & Number Theory
+Combinatorics, modulo arithmetic, factorial of large number, pointer basics
+

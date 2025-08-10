@@ -1,0 +1,97 @@
+Apache Kafka is a distributed messaging system that allows applications to send (publish) and receive (consume) messages 
+(called events) at high speed and large scale.
+Kafka do infinite retries as it stored in dead later queue after n retries.
+es, Kafka supports transactional messages, so producers can roll back a batch of messages 
+if something goes wrong — but only if you explicitly use Kafka’s Transaction API.
+Normal (Non-Transactional) Producer -> no rollback
+Baisc Terms
+| Term                  | Meaning                                                             |
+| --------------------- | ------------------------------------------------------------------- |
+| **Producer**          | The service/app that **sends data** to Kafka                        |
+| **Topic**             | A **category/channel** to organize messages (like a folder)         |
+| **Partition**         | A **subdivision** of a topic to parallelize reads and writes        |
+| **Broker**            | A **Kafka server** — stores partitions and handles message traffic  |
+| **Consumer**          | The service/app that **reads** messages from Kafka                  |
+| **Consumer Group**    | A **group of consumers** working together to process a topic        |
+| **Zookeeper / KRaft** | Manages cluster metadata & leader election (ZK deprecated by KRaft) |
+
+
+Kafka Message Flow (with Diagram):
+       +-------------+        +------------+       +------------+
+       |  Producer   | -----> |  Kafka     | ----> |  Consumer  |
+       | (sends msg) |        |  Topic     |       |  Group     |
+       +-------------+        +------------+       +------------+
+
+-> Producer creates and sends a message (e.g., "order placed").
+-> The message is sent to a Topic (e.g., "orders").
+-> Kafka stores the message in a Partition inside the topic.
+-> Consumers in a Consumer Group read from partitions in parallel.
+-> When a message is read and processed, it is not deleted (Kafka stores it for hours/days).
+
+
+
+What happens if something goes down?
+🚫 If Producer goes down:
+No new messages are sent.
+
+Existing messages in Kafka are safe.
+
+When the producer comes back, it can resume sending.
+
+🚫 If Consumer goes down:
+No one reads from its partition.
+
+Kafka retains messages until the consumer comes back.
+
+When it returns, it resumes from the last offset (checkpoint).
+
+🚫 If Kafka Broker goes down:
+Kafka is a cluster — if there are multiple brokers, it’s fine.
+
+A leader partition moves to another broker.
+
+If all brokers or Zookeeper/KRaft is down → Kafka becomes unavailable.
+
+ Role of Consumer Group:
+Say you have Topic: "orders" with 3 partitions.
+
+And you have 3 consumers in Group cg_orders:
+
+Kafka assigns 1 partition per consumer
+
+Ensures no duplication
+
+If one consumer fails, another one takes over that partition
+
+⏪ Offset System (Replayability)
+Kafka doesn’t delete messages after reading.
+
+Instead, each consumer tracks a cursor (offset).
+
+This allows you to:
+
+Replay old messages
+
+Reprocess if needed
+
+Audit for analytics/debugging
+
+🔄 Data Retention
+Kafka retains messages even after consumption
+
+By default: 7 days or based on disk size
+
+Very useful for analytics, reprocessing, fault tolerance
+
+| Feature                  | **RabbitMQ**                           | **Kafka**                                      |
+| ------------------------ | -------------------------------------- | ---------------------------------------------- |
+| 🔄 **Message Storage**   | Deletes message after consumer gets it | Keeps messages for a **configured time**       |
+| ⏪ **Replay Messages**    | ❌ Not possible once consumed           | ✅ Consumers can **re-read** messages anytime   |
+| ⚡ **Speed/Throughput**   | Good (\~20K messages/sec)              | Excellent (millions/sec)                       |
+| 🧠 **Message Ordering**  | Maintains order per queue              | Maintains order per **partition**              |
+| 🔁 **Consumer Model**    | **Push-based** (sends to consumer)     | **Pull-based** (consumer requests data)        |
+| ⚙️ **Use Case Fit**      | Great for **task queues, short jobs**  | Great for **event streaming, logs, analytics** |
+| 🛠 **Setup Complexity**  | Easier to set up                       | More complex (needs Zookeeper or KRaft)        |
+| 📦 **Durability**        | Stores in memory + disk (configurable) | Optimized for **disk-based durability**        |
+| 🔀 **Scaling Consumers** | Load balanced                          | Each consumer group reads **independently**    |
+

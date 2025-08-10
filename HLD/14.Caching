@@ -1,0 +1,52 @@
+Caching is the process of storing data temporarily so that it can be accessed faster the next time it’s needed.
+
+🔁 Real Life Example:
+Imagine you ask your teacher a question. She looks it up in a big book the first time (slow), but then remembers the answer and tells you instantly the next time (fast).
+That memory is a cache.
+
+🚀 Why Use Caching?
+⚡️ Speed up response times
+
+🧘 Reduce load on backend servers or databases
+
+💰 Save bandwidth or computation cost
+
+⛑ Improve user experience
+
+⛑ Improve user experience
+
+🧰 Types of Caching
+1. Browser Cache
+Stored on the user's browser.
+
+Used to cache static assets like images, CSS, JavaScript.
+
+Example:
+First time loading a website: images are downloaded.
+Next time: browser loads them from local storage.
+
+2. Content Delivery Network (CDN) Cache
+A global network of edge servers that cache static files closer to users.
+
+Reduces latency for global users.
+
+Example:
+Cloudflare, Akamai, AWS CloudFront
+
+3. Application Cache (In-memory)
+Stores results inside your app’s memory (like variables or dictionaries).
+
+Fastest access, usually done using tools like Redis, Memcached.
+
+Example:
+API returns user profile info.
+Cache it for 5 minutes instead of hitting the database every time.
+
+4. Database Cache (server side)
+Cache frequently read data inside or alongside your database.
+
+Some databases (like PostgreSQL) have internal query caches.
+
+Example:
+Popular queries like SELECT * FROM top_selling_products get cached.
+

@@ -1,0 +1,44 @@
+A proxy is like a middleman that sits between a client (like your browser) and a server (like a website).
+
+It forwards your request to another server and then returns the response back to you.
+
+Types of Proxies
+1. Forward Proxy
+🔍 What it does:
+Sits in front of the client.
+
+The client sends requests to the proxy, and the proxy sends those to the internet.
+
+It hides the client’s identity from the server.
+
+🧠 Use case:
+Bypassing firewalls
+
+Browsing anonymously
+
+Corporate network restrictions
+
+Client --> Forward Proxy --> Target Server
+
+
+
+2. Reverse Proxy
+🔁 What it does:
+Sits in front of the server.
+
+The client thinks it’s directly contacting the server.
+
+The reverse proxy hides the server’s details and distributes traffic.
+
+🧠 Use case:
+Load balancing
+
+SSL termination
+
+Caching static content
+
+Security (Hiding internal servers)
+
+Client --> Reverse Proxy --> Internal Servers
+                        ↘︎   ↘︎   ↘︎
+                     server1  server2  server3

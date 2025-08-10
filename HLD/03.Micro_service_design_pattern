@@ -1,0 +1,95 @@
+Introduces Microservices Design Patterns focusing on the Decomposition patterns in a High-Level Design (HLD) context 
+openlegacy.com
++14
+YouTube
++14
+YouTube
++14
+.
+
+Explains how to break a big monolithic application into smaller, independent microservices using logical patterns.
+
+🧩 Key Concepts & Keywords (Basic Language)
+Microservices
+A way to build software as a group of small, independent services that do one job each. They talk to each other through lightweight protocols, usually HTTP/REST. 
+
+
+Loosely coupled = changing one service doesn’t break others.
+
+Autonomous = each service can operate and deploy on its own. 
+
+Decomposition Pattern
+Means breaking a large app into smaller microservices.
+
+This is done so each part can be built, tested, and maintained separately. 
+
+
+🧱 Two Main Decomposition Patterns Covered
+✅ 1. Decompose by Business Capability
+Split services according to what the business does.
+
+Example: In an online store, you might have separate services for orders, inventory, payments, shipping.
+
+Each microservice handles one business capability.
+
+Benefits:
+
+Clear structure.
+
+Teams can own and operate independently. 
+
+
+🔑 Keywords: Business Capability, Loosely Coupled, Cohesive, Autonomous teams.
+
+✅ 2. Decompose by Subdomain (Domain‑Driven Design)
+Uses subdomains and bounded contexts to avoid “God Classes” (huge objects touching everything).
+
+Example: In an e‑commerce system:
+
+Core subdomain: Your main product catalog, order management.
+
+Supporting subdomain: Customer support, analytics.
+
+Generic subdomain: Authentication, logging, generic tools.
+
+Each subdomain lives in its own bounded context and maps to a microservice or group of services. 
+
+
+🔑 Keywords: Subdomain, Bounded Context, Domain-Driven Design (DDD), God Class.
+
+📋 Summary Table (Simple Language)
+Pattern	What It Means in Simple Terms	Keywords
+Business Capability	One service per business function	Business Capability, Cohesive, Autonomous
+Subdomain (DDD)	Break big “God” parts by logical domain	Subdomain, Bounded Context, DDD
+
+🧠 Why Does This Matter (Why Use These Patterns)?
+Makes large systems easier to scale, test, and deploy independently 
+
+
+Helps avoid complex tangled code (God Classes) that try to do everything.
+
+Teams can work on separate parts without stepping on each other’s toes. 
+Medium
+openlegacy.com
+.
+
+🎯 How Shrayansh Presents It
+Starts with why microservices matter (modularity, independent deployment).
+
+Explains two patterns of breakdown:
+
+By business capability
+
+By subdomain (DDD style)
+
+Uses examples and visuals (in Hindi and English) to explain real-world breakdown. 
+
+
+💬 Simple Analogy Time
+Imagine you have a big kitchen that does cooking, cleaning, billing, and delivery—all in one room:
+
+Business Capability: Make separate kitchens—one for cooking, one for cleaning, one for billing, one for delivery. Everyone specializes.
+
+Subdomain: In cooking kitchen, break by sub-space: fruit prep, spice station, plating. Each station has its own area (bounded context).
+
+This avoids chaos (God Class) and gives structure.

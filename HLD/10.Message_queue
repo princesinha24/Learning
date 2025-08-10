@@ -1,0 +1,66 @@
+A Message Queue is a communication system used to send messages between  different parts of a system, typically  
+between microservices or distributed systems, in a decoupled, reliable, and asynchronous way.  
+
+Let’s break it down 👇
+
+🔧 What is a Message Queue?
+Think of it like a waiting line (queue) in a coffee shop:
+
+One system/service sends messages to the queue (Producer)
+
+Another reads messages from the queue (Consumer)
+
+The Producer and Consumer don’t need to run at the same time.
+
+📬 Real-life Analogy
+You order food on Swiggy (Producer)
+
+Order goes into the kitchen queue (Message Queue)
+
+Chef (Consumer) picks up the order when free
+
+You don’t need the chef to be free when you place the order. ✅
+
+Flow
+Producer → [ Message Queue ] → Consumer
+
+| Term                        | Description                                               |
+| --------------------------- | --------------------------------------------------------- |
+| **Producer**                | Sends the message to the queue                            |
+| **Consumer**                | Processes the message from the queue                      |
+| **Broker**                  | The system that manages the queue (e.g., RabbitMQ, Kafka) |
+| **Message**                 | The data being sent                                       |
+| **Queue**                   | Holds the messages until they are consumed                |
+| **Topic**                   | (in pub-sub) like a channel; consumers subscribe to it    |
+| **Ack**                     | Acknowledgment sent after message is processed            |
+| **Durable**                 | Message survives broker restart                           |
+| **Dead Letter Queue (DLQ)** | Queue for failed messages after retries                   |
+
+
+Why Use Message Queues?
+| Benefit          | Explanation                                  |
+| ---------------- | -------------------------------------------- |
+| **Asynchronous** | Producer doesn’t wait for consumer           |
+| **Scalable**     | Add more consumers to handle load            |
+| **Decoupled**    | Services don’t need to know about each other |
+| **Reliable**     | Messages won’t be lost (if persistent)       |
+| **Retry Logic**  | Failed messages can be retried               |
+
+
+How does a Producer know that a Consumer has received and processed a message?
+✅ Answer:
+This depends on the message queue system, but here are the common patterns:
+
+Acknowledgment (Ack):
+
+After processing the message, the Consumer sends an Ack to the Message Queue (Broker).
+
+The Producer doesn’t get a direct response, but the broker confirms that the message was delivered and processed.
+
+Response Queue (Callback Queue):
+
+The Producer includes a "reply-to" queue in the message.
+
+After processing, the Consumer sends the result to this reply queue.
+
+The Producer listens on that queue for a response

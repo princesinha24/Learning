@@ -1,0 +1,33 @@
+2xx: Success
+| Code | Meaning    | Description                                         |
+| ---- | ---------- | --------------------------------------------------- |
+| 200  | OK         | Successful GET, PUT, or POST (with no new resource) |
+| 201  | Created    | Resource created (use in POST)                      |
+| 202  | Accepted   | Request accepted but not yet processed              |
+| 204  | No Content | Success, but no body (often used for DELETE or PUT) |
+Imp 200 and 201
+
+
+3xx: Redirection
+| Code | Meaning           | Description                  |
+| ---- | ----------------- | ---------------------------- |
+| 301  | Moved Permanently | Resource moved (use new URI) |
+| 302  | Found             | Temporary redirect           |
+| 304  | Not Modified      | Cached version is up-to-date |
+not impotant (304 could be)
+
+4xx: Client Errors
+| Code | Meaning              | Description                                   |
+| ---- | -------------------- | --------------------------------------------- |
+| 400  | Bad Request          | Malformed syntax or invalid input             |
+| 401  | Unauthorized         | Authentication required or failed             |
+| 403  | Forbidden            | Authenticated but no permission               |
+| 404  | Not Found            | Resource doesn't exist                        |
+| 405  | Method Not Allowed   | HTTP method not supported for endpoint        |
+| 409  | Conflict             | Conflict with current state (e.g., duplicate) |
+| 422  | Unprocessable Entity | Valid syntax, but semantically invalid        |
+| 429  | Too Many Requests    | Rate limiting exceeded                        |
+
+Imp 400, 401, 403, 404, 429
+
+

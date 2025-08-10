@@ -1,0 +1,87 @@
+NoSQL = Not Only SQL
+NoSQL databases are designed to handle large volumes of unstructured or semi-structured data, scale easily, and prioritize flexibility and performance over strict schema and ACID compliance.
+
+🧩 Types of NoSQL Databases
+There are 4 main types of NoSQL databases:
+| Type                  | Data Structure    | Best For                               | Example DBs           |
+| --------------------- | ----------------- | -------------------------------------- | --------------------- |
+| 1. **Document-based** | JSON, BSON, XML   | Semi-structured data (flexible schema) | MongoDB, CouchDB      |
+| 2. **Key-Value**      | Key → Value pairs | Caching, session storage               | Redis, DynamoDB, Riak |
+| 3. **Column-based**   | Column families   | Analytical queries, large datasets     | Cassandra, HBase      |
+| 4. **Graph-based**    | Nodes and edges   | Relationship-heavy data                | Neo4j, ArangoDB       |
+
+
+Document-Based Database
+Structure: Stores data in documents (like JSON or BSON).
+
+Schema: Flexible (fields can vary between documents).
+
+Use Case: Product catalogs, CMS, user profiles.
+
+✅ Example: MongoDB
+
+{
+  "name": "Alice",
+  "age": 30,
+  "email": "alice@example.com"
+}
+
+Pros:
+Easy to scale
+
+Human-readable
+
+Nested structures
+
+2. 🗝️ Key-Value Store
+Structure: A simple key is mapped to a value.
+
+Use Case: Session management, caching, shopping carts.
+
+✅ Example: Redis
+"user:1001" → "Alice"
+"cart:1001" → ["item1", "item2"]
+
+Pros:
+Super fast
+
+Simple
+
+Great for in-memory cache
+
+3. 📊 Column-Based Store
+Structure: Data stored in columns rather than rows.
+
+Use Case: Analytics, time-series data, logs.
+
+✅ Example: Apache Cassandra
+Instead of:
+ID | Name | Email
+
+It stores:
+Column Family: Users
+Key: 1001
+Columns: Name="Alice", Email="alice@example.com"
+
+Pros:
+High write throughput
+
+Great for massive data
+
+Good for wide tables
+
+4. 🔗 Graph-Based Store
+Structure: Nodes (entities) and Edges (relationships).
+
+Use Case: Social networks, fraud detection, recommendation engines.
+✅ Example: Neo4j
+(Alice) --[FRIENDS_WITH]--> (Bob)
+
+Pros:
+Excellent for connected data
+
+Fast relationship traversal
+
+Natural modeling for social and business graphs
+
+

@@ -1,0 +1,27 @@
+2-Phase Commit Protocol:
+
+🧠 Flow Explanation (Lame Terms):
+🟠 Phase 1: Prepare Phase
+The Coordinator asks all Participants: “Are you ready to commit?”
+
+Each Participant replies with either:
+
+✅ Yes (I’m ready)
+
+❌ No (Something’s wrong, I can’t)
+
+🟢 Phase 2: Commit or Abort
+If all Participants say Yes, the Coordinator says: “Okay, commit!”
+
+If anyone says No, the Coordinator tells everyone to abort.
+
+🔑 Keywords:
+Coordinator: The boss who coordinates the transaction.
+
+Participant: The team members (e.g., databases or services).
+
+Prepare: Ask if they're ready.
+
+Commit: Finalize changes.
+
+Abort: Rollback everything
