@@ -49,4 +49,3 @@ Some databases (like PostgreSQL) have internal query caches.
 
 Example:
 Popular queries like SELECT * FROM top_selling_products get cached.
-
