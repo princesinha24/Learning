@@ -13,7 +13,7 @@ public:
 };
 
 class saveMemento {
-    vector<memento*> states;
+    stack<memento*> states;
 public:
     saveMemento() = default; // Default constructor
     ~saveMemento() {
@@ -22,7 +22,7 @@ public:
         }
     }
     void addMemento(memento* state) {
-        states.push_back(state);
+        states.push(state);
     }
     
     memento* undo(){
@@ -30,8 +30,8 @@ public:
             return nullptr;
         }
 
-        memento* lastState = states.back();
-        states.pop_back();
+        memento* lastState = states.top();
+        states.pop();
         return lastState;
     }
 };
