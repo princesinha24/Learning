@@ -50,3 +50,5 @@ LIS, knapsack, dice roll targets, pizza slices, cuboid stacking, Russian doll en
 15. Math & Number Theory
 Combinatorics, modulo arithmetic, factorial of large number, pointer basics
 
+16.
+
