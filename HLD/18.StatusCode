@@ -30,4 +30,16 @@ not impotant (304 could be)
 
 Imp 400, 401, 403, 404, 429
 
+5xx: Server Errors
+| Code | Meaning                | Description                                    |
+| ---- | ---------------------- | ---------------------------------------------- |
+| 500  | Internal Server Error  | Generic server error                           |
+| 501  | Not Implemented        | Server doesn't support the functionality       |
+| 502  | Bad Gateway            | Invalid response from upstream server          |
+| 503  | Service Unavailable    | Server temporarily overloaded or down         |
+| 504  | Gateway Timeout        | Upstream server didn't respond in time        |
+| 507  | Insufficient Storage   | Server out of storage space                   |
+
+Imp 500, 502, 503, 504
+
 

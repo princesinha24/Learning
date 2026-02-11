@@ -41,42 +41,53 @@ Ship Product -----> Failure? --------> Compensate: Refund Customer, Restock Inve
     v
     End
 
-Code Example (Orchestration in Python):
-class OrderSaga:
-        def __init__(self):
-                self.compensations = []
+// Code Example (Orchestration in Java):
+import java.util.Stack;
 
-        def deduct_inventory(self):
-                print("Inventory deducted.")
-                self.compensations.append(self.restock_inventory)
+class OrderSaga {
+        private Stack<Runnable> compensations = new Stack<>();
 
-        def charge_customer(self):
-                print("Customer charged.")
-                self.compensations.append(self.refund_customer)
+        public void deductInventory() {
+                System.out.println("Inventory deducted.");
+                compensations.push(this::restockInventory);
+        }
 
-        def ship_product(self):
-                print("Product shipped.")
+        public void chargeCustomer() {
+                System.out.println("Customer charged.");
+                compensations.push(this::refundCustomer);
+        }
 
-        def restock_inventory(self):
-                print("Inventory restocked.")
+        public void shipProduct() {
+                System.out.println("Product shipped.");
+        }
 
-        def refund_customer(self):
-                print("Customer refunded.")
+        public void restockInventory() {
+                System.out.println("Inventory restocked.");
+        }
 
-        def execute(self):
-                try:
-                        self.deduct_inventory()
-                        self.charge_customer()
-                        self.ship_product()
-                        print("Order completed successfully.")
-                except Exception as e:
-                        print(f"Error: {e}. Rolling back...")
-                        while self.compensations:
-                                compensation = self.compensations.pop()
-                                compensation()
+        public void refundCustomer() {
+                System.out.println("Customer refunded.");
+        }
 
-# Example usage
-saga = OrderSaga()
-saga.execute()
+        public void execute() {
+                try {
+                        deductInventory();
+                        chargeCustomer();
+                        shipProduct();
+                        System.out.println("Order completed successfully.");
+                } catch (Exception e) {
+                        System.out.println("Error: " + e.getMessage() + ". Rolling back...");
+                        while (!compensations.isEmpty()) {
+                                Runnable compensation = compensations.pop();
+                                compensation.run();
+                        }
+                }
+        }
 
-This example demonstrates compensations queued and executed in reverse order if something fails.
+        public static void main(String[] args) {
+                OrderSaga saga = new OrderSaga();
+                saga.execute();
+        }
+}
+
+// This example demonstrates compensations queued and executed in reverse order if something fails.

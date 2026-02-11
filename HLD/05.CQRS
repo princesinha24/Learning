@@ -33,38 +33,62 @@ The user wants to view their order history.
 The system fetches the data from the read database, optimized for fast retrieval.  
 
 Code Example:  
-Here’s a basic implementation in Python:  
+Here’s a basic implementation in java:  
 
 Command (Write):  
-class PlaceOrderCommand:  
-     def __init__(self, order_id, items):  
-          self.order_id = order_id  
-          self.items = items  
+class PlaceOrderCommand {  
+     private int orderId;  
+     private List<String> items;  
 
-class CommandHandler:  
-     def handle(self, command):  
-          # Logic to save order to the write database  
-          print(f"Order {command.order_id} placed with items: {command.items}")  
+     public PlaceOrderCommand(int orderId, List<String> items) {  
+          this.orderId = orderId;  
+          this.items = items;  
+     }  
 
-# Example usage  
-command = PlaceOrderCommand(order_id=1, items=["item1", "item2"])  
-handler = CommandHandler()  
-handler.handle(command)  
+     public int getOrderId() {  
+          return orderId;  
+     }  
 
-Query (Read):  
-class GetOrderQuery:  
-     def __init__(self, order_id):  
-          self.order_id = order_id  
+     public List<String> getItems() {  
+          return items;  
+     }  
+}  
 
-class QueryHandler:  
-     def handle(self, query):  
-          # Logic to fetch order from the read database  
-          print(f"Fetching details for order {query.order_id}")  
+class CommandHandler {  
+     public void handle(PlaceOrderCommand command) {  
+          // Logic to save order to the write database  
+          System.out.println("Order " + command.getOrderId() + " placed with items: " + command.getItems());  
+     }  
+}  
 
-# Example usage  
-query = GetOrderQuery(order_id=1)  
-handler = QueryHandler()  
-handler.handle(query)  
+// Example usage  
+PlaceOrderCommand command = new PlaceOrderCommand(1, Arrays.asList("item1", "item2"));  
+CommandHandler commandHandler = new CommandHandler();  
+commandHandler.handle(command);  
+
+class GetOrderQuery {  
+     private int orderId;  
+
+     public GetOrderQuery(int orderId) {  
+          this.orderId = orderId;  
+     }  
+
+     public int getOrderId() {  
+          return orderId;  
+     }  
+}  
+
+class QueryHandler {  
+     public void handle(GetOrderQuery query) {  
+          // Logic to fetch order from the read database  
+          System.out.println("Fetching details for order " + query.getOrderId());  
+     }  
+}  
+
+// Example usage  
+GetOrderQuery query = new GetOrderQuery(1);  
+QueryHandler queryHandler = new QueryHandler();  
+queryHandler.handle(query);  
 
 Benefits:  
 Scalability: Read and write operations can scale independently.  
